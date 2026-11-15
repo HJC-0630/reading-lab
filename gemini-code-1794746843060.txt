@@ -1,0 +1,11 @@
+reading-lab-interactive/
+│
+├── AGENTS.md          # AI 維護規範說明（已更新）
+├── index.html         # 互動式書單網頁（主頁面）
+└── images/            # 圖片存放資料夾（請將您的六張書封圖片放入此處）
+    ├── image_0.png
+    ├── image_1.png
+    ├── image_2.png
+    ├── image_3.png
+    ├── image_4.png
+    └── image_5.png

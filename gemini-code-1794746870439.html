@@ -1,0 +1,18 @@
+<!-- 書籍卡片容器 -->
+<div class="book-card-container h-[420px]"> <!-- 固定高度 -->
+    <div class="book-cover-wrapper relative w-full h-full transform-style-preserve-3d">
+        
+        <!-- 正面：書封圖片 (需對應 images/ 資料夾) -->
+        <img src="images/image_X.png" alt="書名" class="book-cover object-cover ...">
+        
+        <!-- 背面：隱藏資訊 -->
+        <div class="back-face bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center items-center text-center transform rotateY(180deg) backface-visibility-hidden">
+            <span class="text-xs px-3 py-1 bg-color-50 text-color-700 rounded-full font-medium mb-3">分類標籤</span>
+            <h3 class="font-bold text-lg text-gray-800 leading-tight">書名</h3>
+            <p class="text-xs text-gray-500 mt-1 mb-4">作者</p>
+            <p class="text-sm text-gray-600 italic line-clamp-3">「精選金句」</p>
+        </div>
+        
+    </div>
+    <!-- 卡片下方文字標題 (選填) -->
+</div>
