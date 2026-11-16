@@ -110,48 +110,10 @@
         <div class="w-full overflow-x-auto no-scrollbar snap-x px-6 py-6" id="horizontal-gallery">
             <div class="flex gap-8 max-w-7xl mx-auto pl-2 pr-12" id="book-grid">
                 
-                <!-- 1: 原子習慣 (image_0.jpg) -->
-                <div class="book-card-container snap-center" data-category="psychology" data-title="原子習慣詹姆斯克利爾">
-                    <div class="book-cover-wrapper">
-                        <img src="images/image_0.jpg" alt="原子習慣" class="book-cover">
-                        <div class="back-face">
-                            <div>
-                                <span class="text-[10px] px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full font-medium">個人成長</span>
-                                <h3 class="font-bold text-base text-gray-900 mt-2">原子習慣</h3>
-                                <p class="text-xs text-gray-500 mb-2">詹姆斯．克利爾</p>
-                                <p class="text-xs text-gray-600 leading-relaxed mb-3"><strong>核心介紹：</strong>透過複利效應與身分認同，養成好習慣並每天進步 1%。</p>
-                            </div>
-                            <div>
-                                <blockquote class="bg-blue-50/50 border-l-2 border-blue-400 p-2 text-[11px] text-gray-700 italic mb-2">「你不會提升到目標的高度，你會降到系統的水平。」</blockquote>
-                                <button onclick="openModal('原子習慣', '詹姆斯．克利爾', '改變命運的不是宏大的目標，而是微小但持續的系統。本書透過四大法則，教導讀者如何輕鬆建立好習慣。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2: 納瓦爾寶典 (getImage.webp) -->
-                <div class="book-card-container snap-center" data-category="business" data-title="納瓦爾寶典艾瑞克喬根森">
-                    <div class="book-cover-wrapper">
-                        <img src="images/getImage.webp" alt="納瓦爾寶典" class="book-cover">
-                        <div class="back-face">
-                            <div>
-                                <span class="text-[10px] px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full font-medium">商業思維</span>
-                                <h3 class="font-bold text-base text-gray-900 mt-2">納瓦爾寶典</h3>
-                                <p class="text-xs text-gray-500 mb-2">艾瑞克．喬根森 編著</p>
-                                <p class="text-xs text-gray-600 leading-relaxed mb-3"><strong>核心介紹：</strong>矽谷傳奇創投家關於財富、判斷力與幸福的人生哲學。</p>
-                            </div>
-                            <div>
-                                <blockquote class="bg-amber-50/50 border-l-2 border-amber-400 p-2 text-[11px] text-gray-700 italic mb-2">"Earn with your mind, not your time."</blockquote>
-                                <button onclick="openModal('納瓦爾寶典', '艾瑞克．喬根森', '納瓦爾集結了一生關於財富與幸福的智慧。他指出真正的財富來自於擁有股權與槓桿，學習專長並保持內心平靜。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3: 投資最重要的事 (images.jpeg) -->
+                <!-- 書籍 1: book1.jpg (投資最重要的事) -->
                 <div class="book-card-container snap-center" data-category="finance" data-title="投資最重要的事霍華馬克斯">
                     <div class="book-cover-wrapper">
-                        <img src="images/images.jpeg" alt="投資最重要的事" class="book-cover">
+                        <img src="images/book1.jpg" alt="投資最重要的事" class="book-cover">
                         <div class="back-face">
                             <div>
                                 <span class="text-[10px] px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full font-medium">金融投資</span>
@@ -167,10 +129,67 @@
                     </div>
                 </div>
 
-                <!-- 4: 絕交不可惜 (main1_233482.jpg) -->
+                <!-- 書籍 2: book2.jpg (原子習慣) -->
+                <div class="book-card-container snap-center" data-category="psychology" data-title="原子習慣詹姆斯克利爾">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book2.jpg" alt="原子習慣" class="book-cover">
+                        <div class="back-face">
+                            <div>
+                                <span class="text-[10px] px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full font-medium">個人成長</span>
+                                <h3 class="font-bold text-base text-gray-900 mt-2">原子習慣</h3>
+                                <p class="text-xs text-gray-500 mb-2">詹姆斯．克利爾</p>
+                                <p class="text-xs text-gray-600 leading-relaxed mb-3"><strong>核心介紹：</strong>透過複利效應與身分認同，養成好習慣並每天進步 1%。</p>
+                            </div>
+                            <div>
+                                <blockquote class="bg-blue-50/50 border-l-2 border-blue-400 p-2 text-[11px] text-gray-700 italic mb-2">「你不會提升到目標的高度，你會降到系統的水平。」</blockquote>
+                                <button onclick="openModal('原子習慣', '詹姆斯．克利爾', '改變命運的不是宏大的目標，而是微小但持續的系統。本書透過四大法則，教導讀者如何輕鬆建立好習慣。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 書籍 3: book3.jpg (納瓦爾寶典) -->
+                <div class="book-card-container snap-center" data-category="business" data-title="納瓦爾寶典艾瑞克喬根森">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book3.jpg" alt="納瓦爾寶典" class="book-cover">
+                        <div class="back-face">
+                            <div>
+                                <span class="text-[10px] px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full font-medium">商業思維</span>
+                                <h3 class="font-bold text-base text-gray-900 mt-2">納瓦爾寶典</h3>
+                                <p class="text-xs text-gray-500 mb-2">艾瑞克．喬根森 編著</p>
+                                <p class="text-xs text-gray-600 leading-relaxed mb-3"><strong>核心介紹：</strong>矽谷傳奇創投家關於財富、判斷力與幸福的人生哲學。</p>
+                            </div>
+                            <div>
+                                <blockquote class="bg-amber-50/50 border-l-2 border-amber-400 p-2 text-[11px] text-gray-700 italic mb-2">"Earn with your mind, not your time."</blockquote>
+                                <button onclick="openModal('納瓦爾寶典', '艾瑞克．喬根森', '納瓦爾集結了一生關於財富與幸福的智慧。他指出真正的財富來自於擁有股權與槓桿，學習專長並保持內心平靜。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 書籍 4: book4.jpg (被討厭的勇氣) -->
+                <div class="book-card-container snap-center" data-category="psychology" data-title="被討厭的勇氣岸見一郎古賀史健">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book4.jpg" alt="被討厭的勇氣" class="book-cover">
+                        <div class="back-face">
+                            <div>
+                                <span class="text-[10px] px-2.5 py-1 bg-red-50 text-red-700 rounded-full font-medium">心理勵志</span>
+                                <h3 class="font-bold text-base text-gray-900 mt-2">被討厭的勇氣</h3>
+                                <p class="text-xs text-gray-500 mb-2">岸見一郎、古賀史健</p>
+                                <p class="text-xs text-gray-600 leading-relaxed mb-3"><strong>核心介紹：</strong>阿德勒心理學，告訴我們所謂的自由，就是被別人討厭的勇氣。</p>
+                            </div>
+                            <div>
+                                <blockquote class="bg-red-50/50 border-l-2 border-red-400 p-2 text-[11px] text-gray-700 italic mb-2">「決定我們自身的不是過去的經歷，而是我們賦予經歷的意義。」</blockquote>
+                                <button onclick="openModal('被討厭的勇氣', '岸見一郎、古賀史健', '透過哲學家與年輕人的對話，深入淺出地帶出阿德勒心理學的精髓。教導我們放下別人的期待，勇敢活出屬於自己的人生。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 書籍 5: book5.jpg (絕交不可惜) -->
                 <div class="book-card-container snap-center" data-category="psychology" data-title="絕交不可惜把善良留給對的人威廉">
                     <div class="book-cover-wrapper">
-                        <img src="images/main1_233482.jpg" alt="絕交不可惜" class="book-cover">
+                        <img src="images/book5.jpg" alt="絕交不可惜" class="book-cover">
                         <div class="back-face">
                             <div>
                                 <span class="text-[10px] px-2.5 py-1 bg-red-50 text-red-700 rounded-full font-medium">心理勵志</span>
@@ -186,10 +205,10 @@
                     </div>
                 </div>
 
-                <!-- 5: 持續買進 (20230907093113_48.jpg) -->
+                <!-- 書籍 6: book6.jpg (持續買進) -->
                 <div class="book-card-container snap-center" data-category="finance" data-title="持續買進尼克馬朱利">
                     <div class="book-cover-wrapper">
-                        <img src="images/20230907093113_48.jpg" alt="持續買進" class="book-cover">
+                        <img src="images/book6.jpg" alt="持續買進" class="book-cover">
                         <div class="back-face">
                             <div>
                                 <span class="text-[10px] px-2.5 py-1 bg-sky-50 text-sky-700 rounded-full font-medium">財務規劃</span>
@@ -200,25 +219,6 @@
                             <div>
                                 <blockquote class="bg-sky-50/50 border-l-2 border-sky-400 p-2 text-[11px] text-gray-700 italic mb-2">「致富取決於你的行動與持續性。」</blockquote>
                                 <button onclick="openModal('持續買進', '尼克．馬朱利', '打破傳統理財迷思，作者證明持續將資金投入大盤指數永遠是普通人累積財富最穩健的路徑。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6: 北歐時間 (getimage-2-1620035225.jpeg.avif 或其他圖) -->
-                <div class="book-card-container snap-center" data-category="lifestyle" data-title="北歐時間日暮Inko">
-                    <div class="book-cover-wrapper">
-                        <img src="images/getimage-2-1620035225.jpeg.avif" alt="北歐時間" class="book-cover">
-                        <div class="back-face">
-                            <div>
-                                <span class="text-[10px] px-2.5 py-1 bg-teal-50 text-teal-700 rounded-full font-medium">生活哲學</span>
-                                <h3 class="font-bold text-base text-gray-900 mt-2">北歐時間</h3>
-                                <p class="text-xs text-gray-500 mb-2">日暮 Inko</p>
-                                <p class="text-xs text-gray-600 leading-relaxed mb-3"><strong>核心介紹：</strong>透過留白與放慢腳步，體會剛剛好的幸福哲學。</p>
-                            </div>
-                            <div>
-                                <blockquote class="bg-teal-50/50 border-l-2 border-teal-400 p-2 text-[11px] text-gray-700 italic mb-2">「幸福，不在於更快，而在於過得剛剛好。」</blockquote>
-                                <button onclick="openModal('北歐時間', '日暮 Inko', '在忙碌的現代生活中，北歐人教會我們重新定義時間。幸福不是追求效率的極致，而是懂得留白與照顧當下。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
                             </div>
                         </div>
                     </div>
