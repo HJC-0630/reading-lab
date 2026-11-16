@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人生必讀十大好書推薦 | ChingChun's Reading Lab</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #FAF8F5;
+            color: #2D3748;
+            overflow-x: hidden;
+        }
+
+        /* 隱藏預設捲動軸但保持滾動功能 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 橫向卷動卡片對齊設定 (Snap Scroll) */
+        .snap-x {
+            scroll-snap-type: x mandatory;
+        }
+        .snap-center {
+            scroll-snap-align: center;
+        }
+
+        /* 3D 翻轉核心樣式 */
+        .book-card-container {
+            perspective: 1500px;
+            cursor: pointer;
+            flex: 0 0 280px;
+            height: 440px;
+            transition: all 0.3s ease;
+        }
+
+        .book-cover-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .book-cover-wrapper.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .book-cover, .back-face {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+
+        .book-cover {
+            object-fit: cover;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease;
+        }
+
+        .book-card-container:hover .book-cover {
+            transform: translateY(-8px);
+        }
+
+        .back-face {
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: left;
+            transform: rotateY(180deg);
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="bg-white/80 border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-xl">📚</span>
+                <h1 class="text-xl font-bold text-gray-800 tracking-wide">ChingChun's Reading Lab</h1>
+            </div>
+            <nav class="flex gap-6 text-sm font-medium text-gray-600">
+                <a href="#" class="hover:text-amber-700 transition">精選書櫃</a>
+                <a href="#dashboard" class="hover:text-amber-700 transition">閱讀儀表板</a>
+                <a href="https://github.com/HJC-0630/reading-lab" target="_blank" class="hover:text-amber-700 transition">GitHub Repo</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-10 flex-grow w-full">
+        
+        <!-- Hero Section -->
+        <div class="max-w-6xl mx-auto px-6 mb-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 text-xs font-semibold rounded-full mb-3 uppercase tracking-wider">沉浸式個人知識庫</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">人生必讀十大好書推薦</h2>
+                <p class="text-gray-500 text-sm md:text-base">向右滑動探索精選書櫃，點擊封面解鎖深度筆記與金句摘錄。</p>
+            </div>
+
+            <!-- Reading Stats Dashboard -->
+            <div id="dashboard" class="flex gap-4 bg-white p-4 rounded-2xl shadow-sm border border-gray-100 text-center">
+                <div>
+                    <span class="block text-xl font-bold text-amber-700">6</span>
+                    <span class="text-[10px] text-gray-400">已收錄好書</span>
+                </div>
+                <div class="border-r border-gray-100"></div>
+                <div>
+                    <span class="block text-xl font-bold text-amber-700">100%</span>
+                    <span class="text-[10px] text-gray-400">閱讀吸收率</span>
+                </div>
+                <div class="border-r border-gray-100"></div>
+                <div>
+                    <span class="block text-xl font-bold text-amber-700">4 類</span>
+                    <span class="text-[10px] text-gray-400">核心知識領域</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 搜尋與分類篩選工具列 -->
+        <div class="max-w-6xl mx-auto px-6 mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <!-- 分類按鈕 -->
+            <div class="flex flex-wrap gap-2 justify-center md:justify-start" id="filter-container">
+                <button data-category="all" class="filter-btn px-4 py-1.5 text-xs font-semibold rounded-full bg-gray-900 text-white transition shadow-sm">全部書籍</button>
+                <button data-category="psychology" class="filter-btn px-4 py-1.5 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:bg-gray-100 transition">心理勵志</button>
+                <button data-category="business" class="filter-btn px-4 py-1.5 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:bg-gray-100 transition">商業思維</button>
+                <button data-category="finance" class="filter-btn px-4 py-1.5 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:bg-gray-100 transition">金融投資</button>
+                <button data-category="lifestyle" class="filter-btn px-4 py-1.5 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:bg-gray-100 transition">生活哲學</button>
+            </div>
+
+            <!-- 搜尋輸入框 -->
+            <div class="w-full md:w-72">
+                <input type="text" id="search-input" placeholder="🔍 搜尋書名、作者或關鍵字..." class="w-full px-4 py-2 text-xs bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm transition">
+            </div>
+        </div>
+
+        <!-- 橫向滾動書櫃區域 (Horizontal Scroll Gallery) -->
+        <div class="w-full overflow-x-auto no-scrollbar snap-x px-6 py-6" id="horizontal-gallery">
+            <div class="flex gap-8 max-w-7xl mx-auto pl-2 pr-12" id="book-grid">
+                
+                <!-- 書籍 1 -->
+                <div class="book-card-container snap-center" data-category="psychology" data-title="絕交不可惜把善良留給對的人威廉">
+                    <div class="book-cover-wrapper">
+                        <img src="main1_233482.jpg" alt="絕交不可惜" class="book-cover">
+                        <div class="back-face">
+                            <div>
+                                <span class="text-[10px] px-2.5 py-1 bg-red-50 text-red-700 rounded-full font-medium">心理勵志</span>
+                                <h3 class="font-bold text-base text-gray-900 mt-2">絕交不可惜，把善良留給對的人</h3>
+                                <p class="text-xs text-gray-500 mb-2">精神科醫師日記．威廉</p>
+                                <p class="text-xs text-gray-600 leading-relaxed mb-3">
+                                    <strong>核心介紹：</strong>學會設立健康的心理界線，不再無條件消耗自己的善意。
+                                </p>
+                            </div>
+                            <div>
+                                <blockquote class="bg-red-50/50 border-l-2 border-red-400 p-2 text-[11px] text-gray-700 italic mb-2">
+                                    「善良需要帶點鋒芒，溫柔需要帶點原則。」
+                                </blockquote>
+                                <button onclick="openModal('絕交不可惜', '精神科醫師日記．威廉', '透過精神科醫師的視角，深刻剖析人際關係中的消耗與勒索。我們常常為了當好人而忽略了自己的內心需求。本書教導我們勇敢設立界線，把珍貴的溫柔留給對的人。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 書籍 2 -->
+                <div class="book-card-container snap-center" data-category="business" data-title="納瓦爾寶典艾瑞克喬根森">
+                    <div class="book-cover-wrapper">
+                        <img src="getImage.webp" alt="納瓦爾寶典" class="book-cover">
+                        <div class="back-face">
+                            <div>
+                                <span class="text-[10px] px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full font-medium">商業思維</span>
+                                <h3 class="font-bold text-base text-gray-900 mt-2">納瓦爾寶典</h3>
+                                <p class="text-xs text-gray-500 mb-2">艾瑞克．喬根森 編著</p>
+                                <p class="text-xs text-gray-600 leading-relaxed mb-3">
+                                    <strong>核心介紹：</strong>矽谷傳奇創投家關於財富、判斷力與幸福的人生哲學。
+                                </p>
+                            </div>
+                            <div>
+                                <blockquote class="bg-amber-50/50 border-l-2 border-amber-400 p-2 text-[11px] text-gray-700 italic mb-2">
+                                    "Earn with your mind, not your time."
+                                </blockquote>
+                                <button onclick="openModal('納瓦爾寶典', '艾瑞克．喬根森', '納瓦爾集結了一生關於財富與幸福的智慧。他指出真正的財富來自於擁有股權與槓桿，而非單純出售時間。學習專長、建立判斷力，並在追求成功時保持內心的平靜。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 書籍 3 -->
+                <div class="book-card-container snap-center" data-category="psychology" data-title="原子習慣詹姆斯克利爾">
+                    <div class="book-cover-wrapper">
+                        <img src="image_0.jpg" alt="原子習慣" class="book-cover">
+                        <div class="back-face">
+                            <div>
+                                <span class="text-[10px] px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full font-medium">個人成長</span>
+                                <h3 class="font-bold text-base text-gray-900 mt-2">原子習慣</h3>
+                                <p class="text-xs text-gray-500 mb-2">詹姆斯．克利爾</p>
+                                <p class="text-xs text-gray-600 leading-relaxed mb-3">
+                                    <strong>核心介紹：</strong>透過複利效應與身分認同，養成好習慣並每天進步 1%。
+                                </p>
+                            </div>
+                            <div>
+                                <blockquote class="bg-blue-50/50 border-l-2 border-blue-400 p-2 text-[11px] text-gray-700 italic mb-2">
+                                    「你不會提升到目標的高度，你會降到系統的水平。」
+                                </blockquote>
+                                <button onclick="openModal('原子習慣', '詹姆斯．克利爾', '改變命運的不是宏大的目標，而是微小但持續的系統。本書透過四大法則（提示、渴望、回應、獎賞），教導讀者如何輕鬆建立好習慣，並徹底擺脫壞習慣的束縛。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 書籍 4 -->
+                <div class="book-card-container snap-center" data-category="finance" data-title="投資最重要的事霍華馬克斯">
+                    <div class="book-cover-wrapper">
+                        <img src="images.jpeg" alt="投資最重要的事" class="book-cover">
+                        <div class="back-face">
+                            <div>
+                                <span class="text-[10px] px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full font-medium">金融投資</span>
+                                <h3 class="font-bold text-base text-gray-900 mt-2">投資最重要的事</h3>
+                                <p class="text-xs text-gray-500 mb-2">霍華．馬克斯</p>
+                                <p class="text-xs text-gray-600 leading-relaxed mb-3">
+                                    <strong>核心介紹：</strong>價值投資大師的 20 項智慧與第二層思考法則。
+                                </p>
+                            </div>
+                            <div>
+                                <blockquote class="bg-emerald-50/50 border-l-2 border-emerald-400 p-2 text-[11px] text-gray-700 italic mb-2">
+                                    「風險控制才是最高指導原則。」
+                                </blockquote>
+                                <button onclick="openModal('投資最重要的事', '霍華．馬克斯', '巴菲特讀了兩遍的投資經典。霍華馬克斯強調「第二層思考」，在市場過熱時保持警覺，在恐慌時看清價值。投資不只是追求報酬，更核心的是對風險的精準掌控。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 書籍 5 -->
+                <div class="book-card-container snap-center" data-category="finance" data-title="持續買進尼克馬朱利">
+                    <div class="book-cover-wrapper">
+                        <img src="20230907093113_48.jpg" alt="持續買進" class="book-cover">
+                        <div class="back-face">
+                            <div>
+                                <span class="text-[10px] px-2.5 py-1 bg-sky-50 text-sky-700 rounded-full font-medium">財務規劃</span>
+                                <h3 class="font-bold text-base text-gray-900 mt-2">持續買進</h3>
+                                <p class="text-xs text-gray-500 mb-2">尼克．馬朱利</p>
+                                <p class="text-xs text-gray-600 leading-relaxed mb-3">
+                                    <strong>核心介紹：</strong>用資料科學家的歷史數據，解答存錢與致富的實證方法。
+                                </p>
+                            </div>
+                            <div>
+                                <blockquote class="bg-sky-50/50 border-l-2 border-sky-400 p-2 text-[11px] text-gray-700 italic mb-2">
+                                    「致富取決於你的行動與持續性。」
+                                </blockquote>
+                                <button onclick="openModal('持續買進', '尼克．馬朱利', '打破傳統理財迷思，作者透過大數據證明，無論何時進場，持續將資金投入大盤指數永遠是普通人累積財富的最穩健路徑。存錢靠心態，致富靠系統。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 書籍 6 -->
+                <div class="book-card-container snap-center" data-category="lifestyle" data-title="北歐時間日暮Inko">
+                    <div class="book-cover-wrapper">
+                        <img src="86e3a19b-db83-4115-88ab-64c989a92960.jpg" alt="北歐時間" class="book-cover">
+                        <div class="back-face">
+                            <div>
+                                <span class="text-[10px] px-2.5 py-1 bg-teal-50 text-teal-700 rounded-full font-medium">生活哲學</span>
+                                <h3 class="font-bold text-base text-gray-900 mt-2">北歐時間</h3>
+                                <p class="text-xs text-gray-500 mb-2">日暮 Inko</p>
+                                <p class="text-xs text-gray-600 leading-relaxed mb-3">
+                                    <strong>核心介紹：</strong>透過留白與放慢腳步，體會剛剛好的幸福哲學。
+                                </p>
+                            </div>
+                            <div>
+                                <blockquote class="bg-teal-50/50 border-l-2 border-teal-400 p-2 text-[11px] text-gray-700 italic mb-2">
+                                    「幸福，不在於更快，而在於過得剛剛好。」
+                                </blockquote>
+                                <button onclick="openModal('北歐時間', '日暮 Inko', '在忙碌的現代生活中，北歐人教會我們重新定義時間。幸福不是追求效率的極致，而是懂得留白、照顧當下。這是一本給心靈放假的溫柔指引。')" class="w-full py-1.5 bg-gray-900 text-white rounded-lg text-[11px] font-medium hover:bg-gray-800 transition">📖 閱讀完整心得</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 mt-8 text-center text-xs text-gray-400">
+            💡 提示：使用滑鼠滾輪橫向滾動，或在觸控板上左右滑動瀏覽書櫃。點擊封面可翻轉查看卡片背面。
+        </div>
+
+    </main>
+
+    <!-- Modal 彈窗 (閱讀完整心得) -->
+    <div id="review-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative transform transition-all">
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-700 text-lg font-bold">✕</button>
+            <span id="modal-tag" class="text-xs px-3 py-1 bg-amber-50 text-amber-700 rounded-full font-medium inline-block mb-3">深入閱讀</span>
+            <h3 id="modal-title" class="text-2xl font-bold text-gray-900 mb-1">書名</h3>
+            <p id="modal-author" class="text-xs text-gray-500 mb-4">作者：OOO</p>
+            <div class="border-t border-gray-100 pt-4 text-sm text-gray-600 leading-relaxed" id="modal-content">
+                詳細心得內容...
+            </div>
+            <div class="mt-8 text-right">
+                <button onclick="closeModal()" class="px-5 py-2 bg-gray-900 text-white rounded-full text-xs font-medium hover:bg-gray-800 transition">關閉視窗</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-6 text-center text-xs text-gray-500">
+            <p>© 2026 ChingChun's Reading Lab. Fully integrated modular knowledge base.</p>
+        </div>
+    </footer>
+
+    <!-- JS 互動與篩選搜尋邏輯 -->
+    <script>
+        // 3D 翻轉效果
+        const containers = document.querySelectorAll('.book-card-container');
+        containers.forEach(container => {
+            container.addEventListener('click', (e) => {
+                // 如果點擊的是 Modal 按鈕，不觸發翻轉
+                if (e.target.tagName === 'BUTTON') return;
+                const wrapper = container.querySelector('.book-cover-wrapper');
+                wrapper.classList.toggle('is-flipped');
+            });
+        });
+
+        // Modal 彈窗控制
+        function openModal(title, author, content) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-author').innerText = '作者： ' + author;
+            document.getElementById('modal-content').innerText = content;
+            document.getElementById('review-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('review-modal').classList.add('hidden');
+        }
+
+        // 分類篩選邏輯
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const bookCards = document.querySelectorAll('.book-card-container');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-gray-900', 'text-white', 'shadow-sm');
+                    b.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-200', 'hover:bg-gray-100');
+                });
+                btn.classList.add('bg-gray-900', 'text-white', 'shadow-sm');
+                btn.classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-200', 'hover:bg-gray-100');
+
+                const category = btn.getAttribute('data-category');
+
+                bookCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 即時關鍵字搜尋邏輯
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', (e) => {
+            const keyword = e.target.value.toLowerCase();
+
+            bookCards.forEach(card => {
+                const titleText = card.getAttribute('data-title').toLowerCase();
+                if (titleText.includes(keyword)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

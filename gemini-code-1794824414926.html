@@ -1,0 +1,16 @@
+<!-- 搜尋與分類篩選工具列 -->
+<div class="max-w-6xl mx-auto px-6 mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+    
+    <!-- 分類按鈕 -->
+    <div class="flex flex-wrap gap-2 justify-center md:justify-start" id="filter-container">
+        <button data-category="all" class="filter-btn px-4 py-1.5 text-xs font-semibold rounded-full bg-gray-900 text-white transition shadow-sm">全部書籍</button>
+        <button data-category="psychology" class="filter-btn px-4 py-1.5 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:bg-gray-100 transition">心理勵志</button>
+        <button data-category="business" class="filter-btn px-4 py-1.5 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:bg-gray-100 transition">商業思維</button>
+        <button data-category="finance" class="filter-btn px-4 py-1.5 text-xs font-semibold rounded-full bg-white text-gray-600 border border-gray-200 hover:bg-gray-100 transition">金融投資</button>
+    </div>
+
+    <!-- 搜尋輸入框 -->
+    <div class="w-full md:w-72">
+        <input type="text" id="search-input" placeholder="搜尋書名或作者..." class="w-full px-4 py-2 text-xs bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm">
+    </div>
+</div>
